@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
@@ -20,11 +20,12 @@ export class NavigationComponent implements OnInit {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private service: IzinService) {
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private service: IzinService, private ref: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.girisYap$ = this.service.girisObservable();
+    this.ref.detectChanges();
   }
 
   cikisYap() {
